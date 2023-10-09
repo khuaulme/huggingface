@@ -19,22 +19,23 @@ async function getImageBlob() {
 //   inputs: "That is a happy person",
 // });
 
-const miniLM = hf.endpoint(
-  "https://vnmiktbob2cu51s2.us-east-1.aws.endpoints.huggingface.cloud"
+// const miniLM = hf.endpoint(
+//   "https://vnmiktbob2cu51s2.us-east-1.aws.endpoints.huggingface.cloud"
+// );
+const clipLM = hf.endpoint(
+  "https://g9m2rh6h8t8wucei.us-east-1.aws.endpoints.huggingface.cloud"
 );
 
 try {
-  const embeddings = await hf.featureExtraction({
-    inputs: "I can't believe this is working!",
-  });
-
-  console.log(embeddings);
-
-  // try {
-  //   const response = await hf.featureExtraction({
-  //     model: "sentence-transformers/distilbert-base-nli-mean-tokens",
-  //     inputs: "That is a happy person",
+  const img = await getImageBlob();
+  //   const embeddings = await hf.featureExtraction({
+  //     inputs: { image: img },
   //   });
+
+  const response = await hf.featureExtraction({
+    model: "sentence-transformers/clip-ViT-B-32",
+    inputs: { image: img },
+  });
 
   //   console.log(response);
 } catch (error) {
